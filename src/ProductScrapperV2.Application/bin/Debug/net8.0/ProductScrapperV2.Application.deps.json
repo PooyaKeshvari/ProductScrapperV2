@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ProductScrapperV2.Application/1.0.0": {
+        "dependencies": {
+          "ProductScrapperV2.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ProductScrapperV2.Application.dll": {}
+        }
+      },
+      "ProductScrapperV2.Domain/1.0.0": {
+        "runtime": {
+          "ProductScrapperV2.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ProductScrapperV2.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProductScrapperV2.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
