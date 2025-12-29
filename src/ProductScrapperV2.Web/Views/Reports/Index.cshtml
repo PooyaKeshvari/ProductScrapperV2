@@ -1,0 +1,42 @@
+@model IReadOnlyCollection<ProductScrapperV2.Application.DTOs.PriceComparisonDto>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>گزارش مقایسه قیمت</h4>
+    <a class="btn btn-success" href="/Reports/Export">خروجی اکسل</a>
+</div>
+
+<div class="table-responsive shadow-sm">
+    <table class="table table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>محصول</th>
+                <th>قیمت ما</th>
+                <th>کمترین قیمت</th>
+                <th>بیشترین قیمت</th>
+                <th>جزئیات رقبا</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comparison in Model)
+            {
+                <tr>
+                    <td>@comparison.ProductName</td>
+                    <td>@comparison.OwnPrice.ToString("N0")</td>
+                    <td>@comparison.Cheapest?.Price.ToString("N0")</td>
+                    <td>@comparison.MostExpensive?.Price.ToString("N0")</td>
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            @foreach (var competitor in comparison.CompetitorPrices)
+                            {
+                                <li>
+                                    <strong>@competitor.CompetitorName</strong> - @competitor.Price.ToString("N0")
+                                    (<a href="@competitor.ProductUrl" target="_blank">لینک</a>)
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
