@@ -1,0 +1,52 @@
+CREATE TABLE Products (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Name NVARCHAR(300) NOT NULL,
+    Sku NVARCHAR(100) NULL,
+    OwnPrice DECIMAL(18,2) NOT NULL,
+    CreatedAt DATETIMEOFFSET NOT NULL
+);
+
+CREATE TABLE Competitors (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Name NVARCHAR(200) NOT NULL,
+    WebsiteUrl NVARCHAR(500) NOT NULL,
+    IsAutoDiscovered BIT NOT NULL,
+    CreatedAt DATETIMEOFFSET NOT NULL
+);
+
+CREATE TABLE PriceRecords (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    ProductId UNIQUEIDENTIFIER NOT NULL,
+    CompetitorId UNIQUEIDENTIFIER NOT NULL,
+    ProductTitle NVARCHAR(300) NOT NULL,
+    ProductUrl NVARCHAR(1000) NOT NULL,
+    Price DECIMAL(18,2) NOT NULL,
+    Currency NVARCHAR(10) NOT NULL,
+    MatchPercentage DECIMAL(5,2) NOT NULL,
+    ConfidenceScore DECIMAL(5,2) NOT NULL,
+    CapturedAt DATETIMEOFFSET NOT NULL,
+    CONSTRAINT FK_PriceRecords_Products FOREIGN KEY (ProductId) REFERENCES Products(Id),
+    CONSTRAINT FK_PriceRecords_Competitors FOREIGN KEY (CompetitorId) REFERENCES Competitors(Id)
+);
+
+CREATE TABLE CompetitorSuggestions (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    ProductId UNIQUEIDENTIFIER NOT NULL,
+    CompetitorId UNIQUEIDENTIFIER NOT NULL,
+    SuggestedRank INT NOT NULL,
+    Reason NVARCHAR(500) NULL,
+    CredibilityScore DECIMAL(5,2) NOT NULL,
+    CONSTRAINT FK_CompetitorSuggestions_Products FOREIGN KEY (ProductId) REFERENCES Products(Id),
+    CONSTRAINT FK_CompetitorSuggestions_Competitors FOREIGN KEY (CompetitorId) REFERENCES Competitors(Id)
+);
+
+CREATE TABLE ScrapeJobs (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    ProductId UNIQUEIDENTIFIER NOT NULL,
+    Status NVARCHAR(50) NOT NULL,
+    AttemptCount INT NOT NULL,
+    ErrorMessage NVARCHAR(1000) NULL,
+    CreatedAt DATETIMEOFFSET NOT NULL,
+    CompletedAt DATETIMEOFFSET NULL,
+    CONSTRAINT FK_ScrapeJobs_Products FOREIGN KEY (ProductId) REFERENCES Products(Id)
+);
