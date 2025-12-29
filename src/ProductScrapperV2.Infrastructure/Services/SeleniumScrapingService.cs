@@ -17,41 +17,20 @@ public class SeleniumScrapingService : IScrapingService
 
     public Task<IReadOnlyCollection<string>> SearchGoogleAsync(string query, CancellationToken cancellationToken)
     {
-        // NOTE: Use result titles (h3) to reduce noisy links and keep stable output for AI analysis.
+        // NOTE: This uses Selenium to perform a Google search and returns raw link text for AI analysis.
         var results = new List<string>();
         using var driver = BuildDriver();
-        driver.Navigate().GoToUrl($"https://www.google.com/search?q={Uri.EscapeDataString(query)}&num=10");
-
-        var titles = driver.FindElements(By.CssSelector("h3"));
-        foreach (var title in titles)
+        driver.Navigate().GoToUrl($"https://www.google.com/search?q={Uri.EscapeDataString(query)}");
+        var anchors = driver.FindElements(By.CssSelector("a"));
+        foreach (var anchor in anchors)
         {
-            var anchor = title.FindElements(By.XPath("./ancestor::a")).FirstOrDefault();
-            var href = anchor?.GetAttribute("href");
-            if (string.IsNullOrWhiteSpace(href))
+            if (string.IsNullOrWhiteSpace(anchor.Text))
             {
                 continue;
             }
-
-            if (!Uri.IsWellFormedUriString(href, UriKind.Absolute))
-            {
-                continue;
-            }
-
-            if (href.Contains("google.com", StringComparison.OrdinalIgnoreCase))
-            {
-                continue;
-            }
-
-            var text = string.IsNullOrWhiteSpace(title.Text) ? anchor?.Text : title.Text;
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                continue;
-            }
-
-            results.Add($"{text.Trim()} | {href}");
+            results.Add($"{anchor.Text} | {anchor.GetAttribute("href")}");
         }
-
-        return Task.FromResult<IReadOnlyCollection<string>>(results.Distinct().ToList());
+        return Task.FromResult<IReadOnlyCollection<string>>(results);
     }
 
     public Task<IReadOnlyCollection<string>> ExtractRawElementsAsync(string url, CancellationToken cancellationToken)
