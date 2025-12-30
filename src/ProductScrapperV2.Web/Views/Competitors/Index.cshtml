@@ -1,0 +1,62 @@
+@model IReadOnlyCollection<ProductScrapperV2.Domain.Entities.Competitor>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">ثبت رقیب جدید</h5>
+                <form asp-action="Create" method="post" class="mt-3">
+                    <div class="mb-3">
+                        <label class="form-label">نام فروشگاه</label>
+                        <input class="form-control" name="Name" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">آدرس وب سایت</label>
+                        <input class="form-control" name="WebsiteUrl" required />
+                    </div>
+                    <button class="btn btn-primary" type="submit">ذخیره</button>
+                </form>
+            </div>
+        </div>
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h5 class="card-title">کشف هوشمند رقبا</h5>
+                <form asp-action="Discover" method="post" class="mt-3">
+                    <div class="mb-3">
+                        <label class="form-label">نام محصول برای جستجو</label>
+                        <input class="form-control" name="productName" required />
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit">اجرای کشف</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">لیست رقبا</h5>
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>وب سایت</th>
+                            <th>خودکار</th>
+                            <th>تاریخ ثبت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var competitor in Model)
+                        {
+                            <tr>
+                                <td>@competitor.Name</td>
+                                <td><a href="@competitor.WebsiteUrl" target="_blank">@competitor.WebsiteUrl</a></td>
+                                <td>@(competitor.IsAutoDiscovered ? "بله" : "خیر")</td>
+                                <td>@competitor.CreatedAt.LocalDateTime.ToString("yyyy/MM/dd")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

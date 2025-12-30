@@ -1,0 +1,45 @@
+@model DashboardViewModel
+
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="card card-stat shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">تعداد محصولات</h6>
+                <h3>@Model.ProductCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">تعداد رقبا</h6>
+                <h3>@Model.CompetitorCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">رکوردهای قیمت</h6>
+                <h3>@Model.PriceRecordCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">میانگین درصد تطابق</h6>
+                <h3>@Model.AverageMatchPercentage.ToString("N1")%</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <h5 class="mb-3">راهنمای سریع</h5>
+    <ul class="list-group">
+        <li class="list-group-item">از بخش محصولات، فهرست محصولات و قیمت خود را ثبت کنید.</li>
+        <li class="list-group-item">در بخش رقبا، سایت های فروشنده را دستی یا خودکار اضافه کنید.</li>
+        <li class="list-group-item">در گزارش ها، مقایسه قیمت و خروجی اکسل دریافت کنید.</li>
+    </ul>
+</div>
