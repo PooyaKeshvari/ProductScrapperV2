@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProductScrapperV2.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d1feb86ff8fb806211f7a4f1aa3b38d6d6b1f58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d31ad179a91a7c070eb2b1c661650ba3485ec5b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProductScrapperV2.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProductScrapperV2.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

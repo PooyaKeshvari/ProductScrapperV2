@@ -1,0 +1,41 @@
+@model ProductPriceHistoryDto
+
+<h3>@Model.ProductName</h3>
+<p>قیمت ما: <strong>@Model.OwnPrice.ToString("N0")</strong></p>
+
+@foreach (var day in Model.DailyHistory)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            📅 @day.Date
+            | کمترین: <strong>@day.MinPrice.ToString("N0")</strong>
+            | بیشترین: <strong>@day.MaxPrice.ToString("N0")</strong>
+        </div>
+
+        <div class="card-body p-2">
+            <table class="table table-sm table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th>رقیب</th>
+                        <th>قیمت</th>
+                        <th>زمان</th>
+                        <th>لینک</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in day.Prices)
+                    {
+                        <tr>
+                            <td>@p.CompetitorName</td>
+                            <td>@p.Price.ToString("N0")</td>
+                            <td>@p.CapturedAt.LocalDateTime.ToShortTimeString()</td>
+                            <td>
+                                <a href="@p.ProductUrl" target="_blank">مشاهده</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
